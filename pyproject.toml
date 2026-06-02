@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rpnaggs"
+version = "0.1.0"
+description = "Local CPU-first PyTorch experiments for robust Prox-NAG-GS."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "matplotlib",
+    "numpy",
+    "optuna",
+    "pandas",
+    "torch",
+    "torchvision",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]
+
+[project.scripts]
+rpnaggs-run = "rpnaggs.cli:main"
+rpnaggs-compare = "rpnaggs.compare_cli:main"
+rpnaggs-bundle = "rpnaggs.bundle_cli:main"
+rpnaggs-optuna = "rpnaggs.optuna_cli:main"
+rpnaggs-theory = "rpnaggs.theory_cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,10 @@
+RPNAGGS/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+data/
+robust_proxnaggs_outputs/
+References/
+Extend_models_and_gpu.docx
+run_methods.docx

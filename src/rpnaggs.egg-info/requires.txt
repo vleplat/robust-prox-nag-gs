@@ -1,0 +1,9 @@
+matplotlib
+numpy
+optuna
+pandas
+torch
+torchvision
+
+[dev]
+pytest

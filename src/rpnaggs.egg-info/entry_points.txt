@@ -1,0 +1,6 @@
+[console_scripts]
+rpnaggs-bundle = rpnaggs.bundle_cli:main
+rpnaggs-compare = rpnaggs.compare_cli:main
+rpnaggs-optuna = rpnaggs.optuna_cli:main
+rpnaggs-run = rpnaggs.cli:main
+rpnaggs-theory = rpnaggs.theory_cli:main
