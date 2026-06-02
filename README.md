@@ -956,6 +956,48 @@ Current strong-regime conclusion:
 - `q = 0.95` remains the safer threshold choice;
 - in the current small safe grid, this stronger clipping benefit does not yet translate into a better final objective gap than `identity`.
 
+Run the residual-floor Test 4:
+
+```bash
+source RPNAGGS/bin/activate
+rpnaggs-theory \
+  --test 4_floor_vs_theory \
+  --output-dir robust_proxnaggs_outputs/theory_verification_test4_floor \
+  --iterations 2000 \
+  --seeds 0 1 2 3 4 \
+  --n 5000 \
+  --d-values 50 \
+  --mu-reg-values 0.1 \
+  --batch-sizes-test2 64 256 \
+  --mu-hat-factors 5 10 \
+  --heavy-tail-kind leverage_mixture \
+  --heavy-tail-leverage-fraction 0.05 \
+  --heavy-tail-leverage-scale 30 \
+  --noise-std 0.0 \
+  --test2-robust-maps identity coord_clip
+```
+
+This focused Test 4 run saves:
+
+- `csv/all_iterations.csv`
+- `csv/summary_by_run.csv`
+- `csv/summary_by_method.csv`
+- `figures/fig_4_lyapunov_vs_iterations_constant_vs_increasing.pdf`
+- `figures/fig_4_objective_gap_vs_iterations_constant_vs_increasing.pdf`
+- `figures/fig_4_transformed_error_sq_vs_iterations.pdf`
+- `figures/fig_4_tail_empirical_floor_vs_batch_size.pdf`
+- `figures/fig_4_empirical_floor_vs_residual_proxy.pdf`
+- `figures/fig_4_deterministic_bias_norm_vs_iterations.pdf`
+- `figures/fig_4_clipping_ratio_vs_iterations.pdf`
+
+Current Test 4 conclusion:
+
+- with fixed batch size, the Lyapunov and objective gap decrease first and then stabilize around a nonzero residual floor;
+- larger constant batch sizes give a smaller empirical floor and a smaller residual proxy;
+- increasing the batch size drives the observed floor sharply downward;
+- when the last phase becomes effectively full-batch, the transformed stochastic error becomes numerically negligible and the empirical floor becomes much smaller;
+- in the current safe `q = 0.95` regime, clipping mainly suppresses extreme transformed gradients, while the dominant floor mechanism is still finite mini-batch stochasticity.
+
 ### Interpretation
 
 These experiments are not intended to outperform AdamW on deep learning benchmarks. Their role is to verify the expected theory-level messages:
