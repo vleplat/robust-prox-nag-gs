@@ -11,7 +11,7 @@ import torch.nn as nn
 
 from rpnaggs.algorithms.registry import build_algorithm
 from rpnaggs.config import ExperimentConfig
-from rpnaggs.data.cifar10 import get_cifar10_loaders
+from rpnaggs.data.registry import get_data_loaders
 from rpnaggs.diagnostics.gradients import (
     collect_gradient_error_statistics,
     estimate_threshold_from_reference_gradient,
@@ -92,7 +92,7 @@ def run_experiment(config: ExperimentConfig, save_artifacts: bool = True) -> dic
     output_dir = Path(config.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    train_loader, train_eval_loader, test_loader = get_cifar10_loaders(config)
+    train_loader, train_eval_loader, test_loader = get_data_loaders(config)
     model = build_model(config).to(device)
     criterion = nn.CrossEntropyLoss()
 

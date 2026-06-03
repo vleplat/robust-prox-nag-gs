@@ -36,6 +36,8 @@ def build_arg_parser() -> argparse.ArgumentParser:
         help="Subset of the training set used in each trial for faster fair comparisons.",
     )
     parser.add_argument("--batch-size", type=int, default=128, help="Batch size for all trials.")
+    parser.add_argument("--dataset", default="cifar10", help="Dataset used in every Optuna trial.")
+    parser.add_argument("--model", default="small_cifar_cnn", help="Model used in every Optuna trial.")
     parser.add_argument("--seed", type=int, default=42, help="Base random seed.")
     parser.add_argument("--num-workers", type=int, default=0, help="DataLoader workers.")
     parser.add_argument(
@@ -96,6 +98,8 @@ def build_arg_parser() -> argparse.ArgumentParser:
 
 def build_base_config(args: argparse.Namespace, method: str, output_dir: Path, trial_number: int) -> ExperimentConfig:
     return ExperimentConfig(
+        dataset=args.dataset,
+        model_name=args.model,
         algorithm_name=method,
         output_dir=str(output_dir / method / f"trial_{trial_number:04d}"),
         epochs=args.epochs,
@@ -267,6 +271,8 @@ def build_replay_command(method: str, params: Dict[str, object], args: argparse.
 
     parts: List[str] = [
         "rpnaggs-run",
+        f"--dataset {args.dataset}",
+        f"--model {args.model}",
         f"--algorithm {method}",
         f"--epochs {args.epochs}",
         f"--train-subset-size {args.train_subset_size}",
@@ -327,8 +333,8 @@ def main(argv=None) -> int:
         sampler = optuna.samplers.TPESampler(seed=args.seed + method_index)
         study = optuna.create_study(direction="maximize", sampler=sampler)
         print(
-            f"[optuna] starting method={method} trials={args.trials} "
-            f"epochs={args.epochs} train_subset_size={args.train_subset_size}"
+            f"[optuna] starting method={method} dataset={args.dataset} model={args.model} "
+            f"trials={args.trials} epochs={args.epochs} train_subset_size={args.train_subset_size}"
         )
         study.optimize(objective_factory(args, method, root_output_dir), n_trials=args.trials)
         summary = save_method_artifacts(study, method, root_output_dir / method, args)
