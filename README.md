@@ -86,7 +86,7 @@ python -m pip install -e ".[dev]"
 On Windows PowerShell:
 
 ```powershell
-git clone https://github.com/YOUR_USERNAME/robust-prox-nag-gs.git
+git clone https://github.com/vleplat/robust-prox-nag-gs.git
 cd robust-prox-nag-gs
 py -3 -m venv RPNAGGS
 .\RPNAGGS\Scripts\Activate.ps1
