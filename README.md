@@ -75,7 +75,7 @@ If you do not have the repository yet, clone it first.
 On Linux/macOS:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/robust-prox-nag-gs.git
+git clone https://github.com/vleplat/robust-prox-nag-gs.git
 cd robust-prox-nag-gs
 python3 -m venv RPNAGGS
 source RPNAGGS/bin/activate
