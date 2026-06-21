@@ -3,7 +3,7 @@
 __pycache__/
 *.pyc
 .DS_Store
-data/
+/data/
 robust_proxnaggs_outputs/
 References/
 Extend_models_and_gpu.docx
